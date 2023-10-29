@@ -1,0 +1,90 @@
+<% layout("/layouts/boilerplate") %>
+    <div class="row">
+        <div class="col-8 offset-2">
+            <br>
+            <h3>Create new listing</h3>
+            <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="title" class="form-label" >Title</label>
+                    <input type="text" class="form-control" id="title" name="listing[title]" placeholder="Enter title" required>
+                    <div class="invalid-feedback">
+                        Enter valid Title
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" class="form-control" name="listing[description]" placeholder="Enter the description" required></textarea>
+                    <div class="invalid-feedback">
+                        Enter valid Description
+                    </div>
+                </div>
+                <label for="inputGroupSelect04" class="form-label">Category</label>
+                    <div class="input-group mb-3">
+                        
+                        <select class="form-select" name="listing[category]" id="inputGroupSelect04" aria-label="Example select with button addon">
+                            <option selected>Select a category</option>
+                            <option value="room">Rooms</option>
+                            <option value="iconic_cities">Iconi Cities</option>
+                            <option value="castel">Castels</option>
+                            <option value="mountain">Mountains</option>
+                            <option value="pool">Pools</option>
+                            <option value="camping">Camping</option>
+                            <option value="farm">Farms</option>
+                            <option value="artic">Artics</option>
+                            <option value="dome">Domes</option>
+                            <option value="boat">Boats</option>
+                            <option>Other</option>
+                        </select>
+                      </div>
+                
+                <div class="mb-3">
+                    <label for="new-image" class="form-label">Upload Image</label>
+                    <input type="file" class="form-control" id="new-image" name="listing[image]"  required >
+                    <div class="invalid-feedback">
+                        Enter a listing related image
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label for="price" class="form-label">Price</label>
+                        <input  class="form-control" id="price" name="listing[price]" placeholder="Enter the price" required >
+                        <div class="invalid-feedback">
+                            Enter valid Price
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3 col-md-8">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="listing[location]" placeholder="Enter the location" required>
+                        <div class="invalid-feedback">
+                            Enter valid Location
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="mb-3">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" class="form-control" id="country" name="listing[country]" placeholder="Enter the country" required >
+                    <div class="invalid-feedback">
+                        Enter valid country
+                    </div>
+                </div>
+            
+                
+                <button class="btn btn-success">ADD</button>
+                <br><br>
+            </form>
+        </div>
+    </div>
+
+
+<!-- <h3>Create new listing</h3>
+<form method="post" action="/listings">
+    <input type="text" name="listing[title]" placeholder="Enter title"><br><br>
+    <textarea name="listing[description]" placeholder="Enter the description"></textarea><br><br>
+    <input type="text" name="listing[image]" placeholder="Enter the image url"><br><br>
+    <input type="number" name="listing[price]" placeholder="Enter the price"><br><br>
+    <input type="text" name="listing[location]" placeholder="Enter the location"><br><br>
+    <input type="text" name="listing[country]" placeholder="Enter the country"><br><br>
+    <button>Create</button>
+</form> -->
