@@ -23,7 +23,7 @@ router.get("/icons",listingController.filteredListing);
 router.get("/:id",wrapAsync(listingController.show));
 
 // Create route (new listing creater)
-router.post("/",isLoggedIn ,validateListing,upload.single("listing[image]"),wrapAsync(listingController.create));
+router.post("/",isLoggedIn,upload.single("listing[image]"),validateListing,wrapAsync(listingController.create));
 
 // Edit route (renders edit form of listings)
 router.get("/:id/edit",isLoggedIn,isOwner,wrapAsync(listingController.edit));
