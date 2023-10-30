@@ -19,6 +19,25 @@
                     Enter valid Description
                 </div>
             </div>
+
+            <label for="inputGroupSelect04" class="form-label">Category</label>
+            <div class="input-group mb-3">
+                <select class="form-select" name="listing[category]" id="inputGroupSelect04" aria-label="Example select with button addon">
+                    <option selected>Select a category</option>
+                    <option value="room">Rooms</option>
+                    <option value="iconic_cities">Iconi Cities</option>
+                    <option value="castel">Castels</option>
+                    <option value="mountain">Mountains</option>
+                    <option value="pool">Pools</option>
+                    <option value="camping">Camping</option>
+                    <option value="farm">Farms</option>
+                    <option value="artic">Artics</option>
+                    <option value="dome">Domes</option>
+                    <option value="boat">Boats</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
             <div class="mb-3">
                 <label for="small-image" class="form-label">Your current listing image </label><br>
                 <img src="<%= bluredImage %>" class="card-img-top show-img" id="small-image" alt="">

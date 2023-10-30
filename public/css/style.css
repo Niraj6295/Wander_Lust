@@ -120,40 +120,6 @@ h3{
     height: 7rem;
     width: 8rem;
 }
-@media(max-width :1200px){
-    #image{
-        width: 35rem;
-        height: 22.5rem;
-    }
-}
-@media(max-width :1000px){
-    #image{
-        width: 22rem;
-        height: 20rem;
-    }
-    #map{
-        height: 20rem;
-        width: 22rem;
-    }
-}
-@media(max-width :530px){
-    #card{
-        position: relative;
-        right: 4rem;
-    }
-}
-@media(max-width :768px){
-    #card{
-        position: relative;
-        right: 2rem;
-    }
-}
-@media(max-width :500px){
-    #card{
-        position: relative;
-        right: 6rem;
-    }
-}
 
 /* review */
 #review-card{
@@ -178,6 +144,16 @@ h3{
     display: flex;
     flex: wrap;
     align-items: center;
+    white-space: nowrap;
+    overflow-x: scroll; /* Add this to allow horizontal scrolling */
+    width: 100%; /* You can adjust this width as needed */
+    /* Add any other styles you want for the container */
+}
+.filters::-webkit-scrollbar {
+    width: 0; /* Hide the scrollbar width */
+} 
+.filters::-webkit-scrollbar-thumb {
+    background: transparent; /* Hide the thumb */
 }
 .filter{
     text-align: center;
@@ -209,3 +185,47 @@ h3{
     color: black;
 }
 
+
+/* ALL Media Query */
+@media(max-width :1287px){
+    .tax-toggle{
+        display: none;
+    }
+}
+@media(max-width :1200px){
+    #image{
+        width: 35rem;
+        height: 22.5rem;
+    }
+}
+@media(max-width :1000px){
+    #image{
+        width: 22rem;
+        height: 20rem;
+    }
+    .search-bar{
+        display: none;
+    }
+    #map{
+        height: 20rem;
+        width: 22rem;
+    }
+}
+@media(max-width :530px){
+    #card{
+        position: relative;
+        right: 4rem;
+    }
+}
+@media(max-width :768px){
+    #card{
+        position: relative;
+        right: 2rem;
+    }
+}
+@media(max-width :500px){
+    #card{
+        position: relative;
+        right: 6rem;
+    }
+}
