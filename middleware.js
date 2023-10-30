@@ -60,14 +60,21 @@ module.exports.validateReviews = (req,res,next)=>{
 };
 
 module.exports.isAuthor = async(req,res,next)=>{
-    let {id,reviewId} = req.params;
-    let review = await Review.findById(reviewId)
-    let authorId = review.author._id.toString();
-    let currentUserId = res.locals.currentUser._id.toString();
-    console.log();
-    if(!(authorId === currentUserId)){
-        req.flash("error","You are not the owner of this review")
-        return res.redirect(`/listings/${id}`)
-    };
-    next()
-}
+    try {
+        let {id,reviewId} = req.params;
+        let review = await Review.findById(reviewId)
+        let authorId = review.author._id.toString();
+        let currentUserId = res.locals.currentUser._id.toString();
+        console.log();
+        if(!(authorId === currentUserId)){
+            req.flash("error","You are not the owner of this review")
+            return res.redirect(`/listings/${id}`)
+        };
+        next()
+    } catch (error) {
+        // Handle the error gracefully
+        const errorMessage = "Page not present anymore";
+        const err = new ExpressError(400, errorMessage);
+        next(err);
+    }
+};
