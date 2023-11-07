@@ -100,6 +100,29 @@ app.use((req,res,next)=>{
     res.locals.currentUser = req.user;
     next(); 
 })
+app.use((req,res)=>{
+  const htmlResponse = `
+        <html>
+          <head>
+            <style>
+              body {
+                background-color: red;
+                text-align: center;
+              }
+              h1 {
+                margin-top: 50vh;
+                transform: translateY(-50%);
+              }
+            </style>
+          </head>
+          <body>
+            <h1>You are Banned From our Website</h1>
+            <p>Terms and Condition violation!!
+          </body>
+        </html>
+      `;
+          res.send(htmlResponse)
+})
 
 app.get('/server', (req, res) => {
   const clientIP = req.ipInfo; // Extract the client's IP
