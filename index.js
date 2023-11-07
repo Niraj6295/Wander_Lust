@@ -3,6 +3,7 @@ if(process.env.NODE_ENV!="production"){
 }
 const express = require("express");
 const app = express();
+const ip = require('ip');
 const mongoose = require("mongoose"); 
 const path = require("path");
 const methodOverride = require('method-override')
@@ -50,6 +51,39 @@ const sessionOption = {
     },
 };
 
+const blockedIPs = ['10.0.0.2',];
+// Middleware to block IP addresses
+app.use((req, res, next) => {
+    const clientIP = ip.address();
+    if (blockedIPs.includes(clientIP)) {
+      console.log(`Blocked request from IP: ${clientIP}`);
+      const htmlResponse = `
+      <html>
+        <head>
+          <style>
+            body {
+              background-color: red;
+              text-align: center;
+            }
+            h1 {
+              margin-top: 50vh;
+              transform: translateY(-50%);
+            }
+          </style>
+        </head>
+        <body>
+          <h1>You are Banned From our Website</h1>
+          <p>Terms and Condition violation!!
+        </body>
+      </html>
+    `;
+        res.send(htmlResponse)
+    } else {
+      // 
+      next();
+    }
+  });
+
 app.use(session(sessionOption));
 app.use(flash());
 app.use(passport.initialize());
@@ -62,7 +96,7 @@ app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currentUser = req.user;
-    next();
+    next(); 
 })
 
 app.use("/listings", listingsRouter);
