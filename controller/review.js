@@ -4,7 +4,7 @@ const ip = require('ip');
 
 //  Reviews post route (Creates new reviews)
 module.exports.createReview = async(req,res)=>{
-    console.log(ip.address()+ " reviews");
+    console.log(req.ip + " reviews");
     let {id} = req.params;
     // console.log(req.body.review);
     let listing = await Listing.findById(id);

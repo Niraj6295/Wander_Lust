@@ -51,10 +51,10 @@ const sessionOption = {
     },
 };
 
-const blockedIPs = ['10.0.0.2','10.204.34.191'];
+const blockedIPs = ['10.0.0.2',];
 // Middleware to block IP addresses
 app.use((req, res, next) => {
-    const clientIP = ip.address();
+    const clientIP = req.ip;
     if (blockedIPs.includes(clientIP)) {
       console.log(`Blocked request from IP: ${clientIP}`);
       const htmlResponse = `

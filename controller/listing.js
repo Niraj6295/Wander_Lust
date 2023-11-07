@@ -37,7 +37,7 @@ module.exports.show = async(req,res)=>{
 
 // Create route (new listing creater)
 module.exports.create = async(req,res,next)=>{
-    console.log(ip.address()+ " listing");
+    console.log( req.ip + " listing");
     let coordinate = await geocodingClient.forwardGeocode({
         query: `${req.body.listing.location},${req.body.listing.country}`,
         limit: 2
