@@ -50,10 +50,24 @@ const sessionOption = {
 };
 
 
+
+app.use(session(sessionOption));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use((req,res,next)=>{
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    res.locals.currentUser = req.user;
+    next(); 
+})
 const blockedIPs = ['103.27.2.62'];
 // Middleware to block IP addresses
 app.use((req, res, next) => {
-  console.log(ip.address());
     const clientIP = req.ip;
     if (blockedIPs.includes(clientIP)) {
       console.log(`Blocked request from IP: ${clientIP}`);
@@ -83,21 +97,6 @@ app.use((req, res, next) => {
       next();
     }
   });
-
-app.use(session(sessionOption));
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-app.use((req,res,next)=>{
-    res.locals.success = req.flash("success");
-    res.locals.error = req.flash("error");
-    res.locals.currentUser = req.user;
-    next(); 
-})
 
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/review", reviewsRouter)
