@@ -8,6 +8,9 @@ const userSchema = new Schema ({
         type : String,
         required : true
     },
+    data :{
+        type:String
+    }
 });
 
 userSchema.plugin(passportLoaclMongoose);

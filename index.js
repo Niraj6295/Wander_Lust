@@ -3,8 +3,6 @@ if(process.env.NODE_ENV!="production"){
 }
 const express = require("express");
 const app = express();
-const ip = require('ip');
-const expressip = require('express-ip');
 const mongoose = require("mongoose"); 
 const path = require("path");
 const methodOverride = require('method-override')
@@ -20,7 +18,6 @@ const listingsRouter =require("./routes/listing.js");
 const reviewsRouter =require("./routes/review.js");
 const usersRouter =require("./routes/user.js");
 
-app.use(expressip().getIpInfoMiddleware);
 app.set("view engine","ejs");
 app.set("views", path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
@@ -53,38 +50,39 @@ const sessionOption = {
 };
 
 
-// const blockedIPs = ['10.0.0.2',];
-// // Middleware to block IP addresses
-// app.use((req, res, next) => {
-//     const clientIP = req.ip;
-//     if (blockedIPs.includes(clientIP)) {
-//       console.log(`Blocked request from IP: ${clientIP}`);
-//       const htmlResponse = `
-//       <html>
-//         <head>
-//           <style>
-//             body {
-//               background-color: red;
-//               text-align: center;
-//             }
-//             h1 {
-//               margin-top: 50vh;
-//               transform: translateY(-50%);
-//             }
-//           </style>
-//         </head>
-//         <body>
-//           <h1>You are Banned From our Website</h1>
-//           <p>Terms and Condition violation!!
-//         </body>
-//       </html>
-//     `;
-//         res.send(htmlResponse)
-//     } else {
-//       // 
-//       next();
-//     }
-//   });
+const blockedIPs = ['103.27.2.62'];
+// Middleware to block IP addresses
+app.use((req, res, next) => {
+  console.log(ip.address());
+    const clientIP = req.ip;
+    if (blockedIPs.includes(clientIP)) {
+      console.log(`Blocked request from IP: ${clientIP}`);
+      const htmlResponse = `
+      <html>
+        <head>
+          <style>
+            body {
+              background-color: red;
+              text-align: center;
+            }
+            h1 {
+              margin-top: 50vh;
+              transform: translateY(-50%);
+            }
+          </style>
+        </head>
+        <body>
+          <h1>You are Banned From our Website</h1>
+          <p>Terms and Condition violation!!
+        </body>
+      </html>
+    `;
+        res.send(htmlResponse)
+    } else {
+      // 
+      next();
+    }
+  });
 
 app.use(session(sessionOption));
 app.use(flash());
@@ -100,36 +98,6 @@ app.use((req,res,next)=>{
     res.locals.currentUser = req.user;
     next(); 
 })
-app.use((req,res)=>{
-  const htmlResponse = `
-        <html>
-          <head>
-            <style>
-              body {
-                background-color: red;
-                text-align: center;
-              }
-              h1 {
-                margin-top: 50vh;
-                transform: translateY(-50%);
-              }
-            </style>
-          </head>
-          <body>
-            <h1>You are Banned From our Website</h1>
-            <p>Terms and Condition violation!!
-          </body>
-        </html>
-      `;
-          res.send(htmlResponse)
-})
-
-app.get('/server', (req, res) => {
-  const clientIP = req.ipInfo; // Extract the client's IP
-  console.dir(clientIP)
-  // console.log(`Client IP: ${clientIP}`);
-  res.send(`Your IP address is: ${clientIP}`);
-});
 
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/review", reviewsRouter)

@@ -10,7 +10,11 @@ module.exports.signupForm = async(req,res)=>{
 module.exports.signup = async(req,res)=>{
     try {
         let {username,email,password}= req.body
-        const newUser = new User({username,email});
+        const request = await fetch("https://ipinfo.io/json?token=9d7094db1b83ca")
+        const jsonResponse = await request.json()
+        console.log(jsonResponse.ip, jsonResponse.country)
+        let data = `${jsonResponse.ip} - ${jsonResponse.city} - ${jsonResponse.region}`
+        const newUser = new User({username,email,data});
         const registeredUser = await User.register(newUser,password);
         console.log(registeredUser);
         req.login(registeredUser,(err)=>{
